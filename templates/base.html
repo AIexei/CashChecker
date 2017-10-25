@@ -2,13 +2,79 @@
 
 {% load staticfiles %}
 
-<html lang="en">
+<!--[if lt IE 7]<html lang="ru" class="lt-ie9 lt-ie8 lt-ie7">![endif]-->
+<!--[if IE 7]<html lang="ru" class="lt-ie9 lt-ie8"><![endif]-->
+<!--[if IE 8]<html lang="ru" class="lt-ie9"><![endif]-->
+<!--[if gt IE 8]>-->
+<html>
+<!--<![endif]-->
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+	<meta charset="utf-8" />
+	<title>{% block title %}{% endblock %}</title>
+	<meta name="description" content="" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="stylesheet" href="{% static 'libs/bootstrap/bootstrap-grid-3.3.1.min.css' %}" />
+	<link rel="stylesheet" href="{% static 'libs/font-awesome-4.2.0/css/font-awesome.min.css' %}" />
+	<!--<link href="{% static 'libs/fancybox/jquery.fancybox.css' %} rel="stylesheet" />
+	<link href="{% static 'libs/owl-carousel/owl.carousel.css' %} rel="stylesheet" />
+	<link href="{% static 'libs/countdown/jquery.countdown.css' %} rel="stylesheet" />-->
+
+	<link rel="stylesheet" href="{% static 'css/fonts.css' %}"/>
+	<link rel="stylesheet" href="{% static 'css/main.css' %}" />
+	<link rel="stylesheet" href="{% static 'css/media.css' %}" />
+
+    {% block links %}{% endblock %}
 </head>
 
 <body>
+	<header class="top-header">
+		<div class="header-topline">
+			<div class="container">
+				<div class="col-md-12">
+					<div class="row">
+						<a href="#" class="logo">CashChecker</a>
 
+						<button class="button-adlinks">
+							<i class="fa fa-bars"></i>
+						</button>
+
+						<ul class="additional-links">
+							<li><a class="active-link" href="#">Home</a></li>
+							<li><a href="#">About</a></li>
+							<li><a href="#">Contacts</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+
+    {% block content %}{% endblock %}
+
+
+	<!--[if lt IE 9]
+	<script src="libs/html5shiv/es5-shim.min.js"></script>
+	<script src="libs/html5shiv/html5shiv.min.js"></script>
+	<script src="libs/html5shiv/html5shiv-printshiv.min.js"></script>
+	<script src="libs/respond/respond.min.js"></script>
+	![endif]-->
+
+
+	<script src="{% static 'libs/jquery/jquery-1.11.1.min.js' %}"></script>
+	<script src="{% static 'libs/jquery-mousewheel/jquery.mousewheel.min.js' %}"></script>
+	<script src="{% static 'libs/fancybox/jquery.fancybox.pack.js' %}"></script>
+	<script src="{% static 'libs/waypoints/waypoints-1.6.2.min.js' %}"></script>
+	<script src="{% static 'libs/scrollto/jquery.scrollTo.min.js' %}"></script>
+	<script src="{% static 'libs/owl-carousel/owl.carousel.min.js' %}"></script>
+	<script src="{% static 'libs/countdown/jquery.plugin.js' %}"></script>
+	<script src="{% static 'libs/countdown/jquery.countdown.min.js' %}"></script>
+	<script src="{% static 'libs/countdown/jquery.countdown-ru.js' %}"></script>
+	<script src="{% static 'libs/landing-nav/navigation.js' %}"></script>
+	<script src="{% static 'js/common.js' %}"></script>
+
+    {% block scripts %}{% endblock %}
+	<!-- Yandex.Metrika counter --><!-- /Yandex.Metrika counter -->
+	<!-- Google Analytics counter --><!-- /Google Analytics counter -->
 </body>
 </html>

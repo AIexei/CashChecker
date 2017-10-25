@@ -1,119 +1,69 @@
-<!DOCTYPE html>
-<!--[if lt IE 7]><html lang="ru" class="lt-ie9 lt-ie8 lt-ie7"><![endif]-->
-<!--[if IE 7]><html lang="ru" class="lt-ie9 lt-ie8"><![endif]-->
-<!--[if IE 8]><html lang="ru" class="lt-ie9"><![endif]-->
-<!--[if gt IE 8]><!-->
-<html lang="ru">
-<!--<![endif]-->
-<head>
-	<meta charset="utf-8" />
-	<title>Заголовок</title>
-	<meta name="description" content="" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<link rel="shortcut icon" href="favicon.png" />
-	<link rel="stylesheet" href="libs/bootstrap/bootstrap-grid-3.3.1.min.css" />
-	<link rel="stylesheet" href="libs/font-awesome-4.2.0/css/font-awesome.min.css" />
-	<!--<link rel="stylesheet" href="libs/fancybox/jquery.fancybox.css" />
-	<link rel="stylesheet" href="libs/owl-carousel/owl.carousel.css" />
-	<link rel="stylesheet" href="libs/countdown/jquery.countdown.css" />-->
-	<link rel="stylesheet" href="css/fonts.css" />
-	<link rel="stylesheet" href="css/main.css" />
-	<link rel="stylesheet" href="css/authsystem.css"/>
-	<link rel="stylesheet" href="css/media.css" />
-</head>
+{% extends 'base.html' %}
+{% load staticfiles %}
 
-<body>
-	<header class="top-header">
-		<div class="header-topline">
-			<div class="container">
-				<div class="col-md-12">
-					<div class="row">
-						<a href="#" class="logo">CashChecker</a>
-						
-						<button class="button-adlinks">
-							<i class="fa fa-bars"></i>	
-						</button>
 
-						<ul class="additional-links">
-							<li><a class="active-link" href="#">Home</a></li>
-							<li><a href="#">About</a></li>
-							<li><a href="#">Contacts</a></li>
-						</ul>
-					</div>
+{% block title %}
+Auth
+{% endblock %}
+
+
+{% block links %}
+<link rel="stylesheet" href="{% static 'users/css/authsystem.css' %}"/>
+{% endblock %}
+
+
+{% block content %}
+<div class="forms">
+	<div class="container">
+		<div class="row">
+			<div class="content">
+				<div class="col-md-7">
+					<p class="p-big">Lorem ipsum dolor sit amet.</p>
+					<p class="p-mid">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae fuga corrupti, possimus necessitatibus laboriosam vitae esse cupiditate modi maiores, tenetur optio adipisci nihil eum eaque amet consequuntur veritatis quasi? Sapiente!</p>
 				</div>
-			</div>
-		</div>
-	</header>
 
-	<div class="forms">
-		<div class="container">
-			<div class="row">
-				<div class="content">
-					<div class="col-md-7">
-						<p class="p-big">Lorem ipsum dolor sit amet.</p>
-						<p class="p-mid">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae fuga corrupti, possimus necessitatibus laboriosam vitae esse cupiditate modi maiores, tenetur optio adipisci nihil eum eaque amet consequuntur veritatis quasi? Sapiente!</p>
+				<div class="col-md-5">
+					<div id="logindiv">
+						<form class="auth-form" method="post" action="{% url 'auth' %}">
+							{% csrf_token %}
+							<h3>Please, sign in</h3>
+							<input name="email" type="email" class="finput" placeholder="Your email" required/>
+							<input name="psw" type="password" class="linput" placeholder="Enter password" required/>
+
+							<button type="submit">Sign in</button>
+						</form>
+
+						<p class="have-account">
+							You have no account?
+							<a href="">Register</a>
+						</p>
 					</div>
-					
-					<div class="col-md-5">
-						<div id="logindiv">
-							<form class="auth-form" action="#">
-								<h3>Please, sign in</h3>
-								<input name="email" type="email" class="finput" placeholder="Your email" required/>
-								<input name="psw" type="password" class="linput" placeholder="Enter password" requied/>
 
-								<button type="submit">Sign in</button>
-							</form>
+					<div id="registerdiv" class="hidden">
+						<form class="auth-form" method="post" action="{% url 'auth' %}">
+							{% csrf_token %}
+							<h3>Please, register</h3>
+							<input name="email" type="email" class="finput" placeholder="Your email" required/>
+							<input name="name" type="text" placeholder="Your name" required/>
+							<input name="psw" type="password" placeholder="Enter password" required/>
+							<input name="cpsw" type="password" class="linput" placeholder="Confirm password" required/>
 
-							<p class="have-account">
-								You have no account?
-								<a href="#">Register</a>
-							</p>
-						</div>
+							<button type="submit">Register</button>
+						</form>
 
-						<div id="registerdiv" class="hidden">
-							<form class="auth-form" action="#">
-								<h3>Please, register</h3>
-								<input name="email" type="email" class="finput" placeholder="Your email" required/>
-								<input name="name" type="text" placeholder="Your name" requied/>
-								<input name="psw" type="password" placeholder="Enter password" requied/>
-								<input name="cpsw" type="password" class="linput" placeholder="Confirm password" requied/>
-
-								<button type="submit">Register</button>
-							</form>
-
-							<p class="have-account">
-								You have an account?
-								<a href="#">Sign in</a>
-							</p>
-						</div>
+						<p class="have-account">
+							You have an account?
+							<a href="">Sign in</a>
+						</p>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+</div>
+{% endblock %}
 
-	<!--[if lt IE 9]>
-	<script src="libs/html5shiv/es5-shim.min.js"></script>
-	<script src="libs/html5shiv/html5shiv.min.js"></script>
-	<script src="libs/html5shiv/html5shiv-printshiv.min.js"></script>
-	<script src="libs/respond/respond.min.js"></script>
-	<![endif]-->
-	
-	
-	<script src="libs/jquery/jquery-1.11.1.min.js"></script>
-	<script src="libs/jquery-mousewheel/jquery.mousewheel.min.js"></script>
-	<script src="libs/fancybox/jquery.fancybox.pack.js"></script>
-	<script src="libs/waypoints/waypoints-1.6.2.min.js"></script>
-	<script src="libs/scrollto/jquery.scrollTo.min.js"></script>
-	<script src="libs/owl-carousel/owl.carousel.min.js"></script>
-	<script src="libs/countdown/jquery.plugin.js"></script>
-	<script src="libs/countdown/jquery.countdown.min.js"></script>
-	<script src="libs/countdown/jquery.countdown-ru.js"></script>
-	<script src="libs/landing-nav/navigation.js"></script>
-	<script src="js/common.js"></script>
-	<script src="js/main.js"></script>
-	<!-- Yandex.Metrika counter --><!-- /Yandex.Metrika counter -->
-	<!-- Google Analytics counter --><!-- /Google Analytics counter -->
-</body>
-</html>
+
+{% block scripts %}
+<script src="{% static 'js/main.js' %}"></script>
+{% endblock %}

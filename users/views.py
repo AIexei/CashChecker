@@ -5,16 +5,14 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.core.mail import send_mail
 from django.conf import settings
-from .forms import UserForm
 import re
 
 # Create your views here.
 
-
+'''
 class RegisterView(FormView):
     url = '/auth/register/'
     template_name = 'users/register.html'
-    form_class = UserForm
 
 
     def get(self, request, *args, **kwargs):
@@ -23,7 +21,6 @@ class RegisterView(FormView):
 
     def get_context_data(self, **kwargs):
         context = {
-            'form': UserForm(),
             'message': kwargs.get('message'),
         }
 
@@ -70,19 +67,21 @@ class RegisterView(FormView):
             return redirect('/')
 
         return super(RegisterView, self).dispatch(request, *args, **kwargs)
+'''
 
-
-class LoginView(View):
+class AuthView(View):
     success_url = '/'
-    url = '/auth/login/'
-    template_name = 'users/login.html'
+    url = '/auth/'
+    template_name = 'users/loginsys.html'
 
 
     def get(self, request, context=None):
         return render(request, self.template_name, context)
 
-
+    '''
     def post(self, request, *args, **kwargs):
+        print('there')
+        
         email = request.POST.get('email')
         password = request.POST.get('password')
 
@@ -98,13 +97,38 @@ class LoginView(View):
         else:
             context = {'message': 'Invalid data.'}
             return self.get(request, context)
+        
+    '''
 
 
     def dispatch(self, request, *args, **kwargs):
         if request.user and request.user.is_authenticated():
             return redirect(self.success_url)
 
-        return super(LoginView, self).dispatch(request, *args, **kwargs)
+        return super(AuthView, self).dispatch(request, *args, **kwargs)
+
+
+class LoginView(View):
+    pass
+
+
+class RegisterView(View):
+    url = '/auth/register/'
+
+
+    def post(self, request, *args, **kwargs):
+        pass
+
+
+    def form_valid(self, form):
+        pass
+
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user and request.user.is_authenticated():
+            return redirect('/')
+
+        return super(RegisterView, self).dispatch(request, *args, **kwargs)
 
 
 class LogoutView(RedirectView):
@@ -117,3 +141,7 @@ class LogoutView(RedirectView):
 
 def register_success(request):
     return HttpResponse('register success')
+
+
+def auth(request):
+    return render(request, 'users/loginsys.html')

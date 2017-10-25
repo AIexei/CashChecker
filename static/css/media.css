@@ -48,17 +48,17 @@
 /*==========  Mobile First Method  ==========*/
 
 /* Custom, iPhone Retina */
-@media only screen and (min-width : 320px) {
+@media only screen and (min-width : 321px) {
 
 }
 
 /* Extra Small Devices, Phones */
-@media only screen and (min-width : 480px) {
+@media only screen and (min-width : 481px) {
 
 }
 
 /* Extra Small Devices, Phones */
-@media only screen and (min-width : 576px) {
+@media only screen and (min-width : 577px) {
 	button.button-adlinks {
 		display: none !important;
 	}
@@ -69,16 +69,16 @@
 }
 
 /* Small Devices, Tablets */
-@media only screen and (min-width : 768px) {
+@media only screen and (min-width : 769px) {
 	
 }
 
 /* Medium Devices, Desktops */
-@media only screen and (min-width : 992px) {
+@media only screen and (min-width : 993px) {
 	
 }
 
  /* Large Devices, Wide Screens */
-@media only screen and (min-width : 1200px) {
+@media only screen and (min-width : 1201px) {
 
 }
