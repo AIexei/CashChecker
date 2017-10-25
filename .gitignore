@@ -1,0 +1,7 @@
+.idea/
+note.txt
+*.pyc
+*.xml
+*.iml
+*~
+temp.py

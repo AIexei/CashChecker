@@ -1,0 +1,77 @@
+.forms {
+	margin-top: 50px;
+	margin-bottom: 50px;
+}
+
+.auth-form h3 {
+	text-align: center;
+	margin-top: 20px;
+}
+
+.auth-form input {
+	display: block;
+	width: 70%;
+	max-width: 350px;
+	margin: auto;
+	line-height: 30px;
+	border: 1px solid;
+	margin-bottom: -1px;
+	padding: 7px 15px;
+	-webkit-transition: all .25s;
+	-o-transition: all .25s;
+	transition: all .25s; 
+}
+
+.auth-form button {
+	display: block;
+	margin: 20px auto 0;
+	border: medium none;
+	background-color: #2bc6a4;
+	color: white;
+	padding: 10px 40px;
+	border-radius: 5px;
+	text-transform: uppercase;
+	text-align: center;
+	-webkit-transition: all .25s;
+	-o-transition: all .25s;
+	transition: all .25s; 
+}
+
+.auth-form button:hover {
+	background-color: #4feac8;
+}
+
+.auth-form button:active {
+	background-color: #14af8d;
+}
+
+.finput {
+	border-top-left-radius: 3px;
+	border-top-right-radius: 3px;
+}	
+
+.linput {
+	border-bottom-left-radius: 3px;
+	border-bottom-right-radius: 3px;
+}
+
+.p-big {
+	font-size: 50px;
+	margin: 0;
+	margin-bottom: 20px;
+}
+
+.p-mid {
+	font-size: 26px;
+	margin: 0;
+	margin-bottom: 50px;
+}
+
+.content {
+	vertical-align: center;
+}
+
+.have-account {
+	margin-top: 30px;
+	text-align: center;
+}

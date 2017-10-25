@@ -1,0 +1,83 @@
+*::-webkit-input-placeholder {
+	color: #666;
+	opacity: 1;
+}
+*:-moz-placeholder {
+	color: #666;
+	opacity: 1;
+}
+*::-moz-placeholder {
+	color: #666;
+	opacity: 1;
+}
+*:-ms-input-placeholder {
+	color: #666;
+	opacity: 1;
+}
+
+body input:focus:required:invalid,
+body textarea:focus:required:invalid {
+	
+}
+body input:required:valid,
+body textarea:required:valid {
+	
+}
+body {
+	font-family: "RobotoRegular", sans-serif;
+	font-size: 16px;
+}
+
+
+.header-topline {
+	background-color: #0149b5;
+	color: white;
+	padding: 2px 0;
+}
+
+.logo {
+	color: white; 
+	font-family: "NautilusPompiliusRegular";
+	font-size: 30px;
+	vertical-align: middle;
+	position: relative;
+    top: 5px;
+}
+
+.additional-links {
+	float: right;
+	padding: 0;
+	z-index: 10;
+}
+
+.additional-links li {
+	margin: 0;
+    padding: 0;
+    list-style-type: none;
+    display: inline-block;
+}
+
+.additional-links a {
+	color: white;
+	padding: 10px;
+	-webkit-transition: all .25s;
+	-o-transition: all .25s;
+	transition: all .25s; 
+}
+
+.additional-links a:hover {
+	color: #002347;
+}
+
+.active-link {
+	color: #002347 !important;
+	pointer-events: none;
+}
+
+.button-adlinks {
+	border: none;
+	background-color: transparent;
+	float: right;
+	padding: 8px 15px;
+	margin: 8px 0;
+}
