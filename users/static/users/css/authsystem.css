@@ -75,3 +75,8 @@
 	margin-top: 30px;
 	text-align: center;
 }
+
+.message {
+	text-align: center;
+	color: red;
+}

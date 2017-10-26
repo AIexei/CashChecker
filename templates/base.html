@@ -43,6 +43,10 @@
 							<li><a class="active-link" href="#">Home</a></li>
 							<li><a href="#">About</a></li>
 							<li><a href="#">Contacts</a></li>
+
+							{% if user.is_authenticated %}
+								<li><a href="{% url 'logout' %}">Logout</a></li>
+							{% endif %}
 						</ul>
 					</div>
 				</div>

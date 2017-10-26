@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
-from django.views.generic import View, FormView, RedirectView
+from django.views.generic import View, RedirectView
 from django.http import HttpResponse
+from django.template.loader import render_to_string
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.core.mail import send_mail
@@ -78,28 +79,6 @@ class AuthView(View):
     def get(self, request, context=None):
         return render(request, self.template_name, context)
 
-    '''
-    def post(self, request, *args, **kwargs):
-        print('there')
-        
-        email = request.POST.get('email')
-        password = request.POST.get('password')
-
-        user = authenticate(username=email, password=password)
-
-        if user is not None:
-            if user.is_active:
-                login(request, user)
-                return redirect(self.success_url)
-            else:
-                context = {'message': 'Your account is deactivated.'}
-                return self.get(request, context)
-        else:
-            context = {'message': 'Invalid data.'}
-            return self.get(request, context)
-        
-    '''
-
 
     def dispatch(self, request, *args, **kwargs):
         if request.user and request.user.is_authenticated():
@@ -109,11 +88,37 @@ class AuthView(View):
 
 
 class LoginView(View):
-    pass
+    url = '/auth/login/'
+
+
+    def get(self, request, context=None):
+        return redirect(AuthView.url)
+
+
+    def post(self, request, *args, **kwargs):
+        email = request.POST.get('email')
+        password = request.POST.get('psw')
+
+        user = authenticate(username=email, password=password)
+
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                message = ''
+            else:
+                message = 'Your account is deactivated.'
+        else:
+            message = 'Invalid data.'
+
+        return HttpResponse(message)
 
 
 class RegisterView(View):
     url = '/auth/register/'
+
+
+    def get(self, request, context=None):
+        return redirect(AuthView.url)
 
 
     def post(self, request, *args, **kwargs):

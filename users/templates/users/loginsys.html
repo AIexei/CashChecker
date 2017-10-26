@@ -24,18 +24,19 @@ Auth
 
 				<div class="col-md-5">
 					<div id="logindiv">
-						<form class="auth-form" method="post" action="{% url 'auth' %}">
+						<form class="auth-form" method="post" action="{% url 'login' %}">
 							{% csrf_token %}
 							<h3>Please, sign in</h3>
-							<input name="email" type="email" class="finput" placeholder="Your email" required/>
+							<input name="email" type="email" class="finput" placeholder="Your email" required />
 							<input name="psw" type="password" class="linput" placeholder="Enter password" required/>
 
+							<p class="message"></p>
 							<button type="submit">Sign in</button>
 						</form>
 
 						<p class="have-account">
 							You have no account?
-							<a href="">Register</a>
+							<a href="#">Register</a>
 						</p>
 					</div>
 
@@ -48,12 +49,13 @@ Auth
 							<input name="psw" type="password" placeholder="Enter password" required/>
 							<input name="cpsw" type="password" class="linput" placeholder="Confirm password" required/>
 
+							<p class="message"></p>
 							<button type="submit">Register</button>
 						</form>
 
 						<p class="have-account">
 							You have an account?
-							<a href="">Sign in</a>
+							<a href="#">Sign in</a>
 						</p>
 					</div>
 				</div>
@@ -66,4 +68,5 @@ Auth
 
 {% block scripts %}
 <script src="{% static 'js/main.js' %}"></script>
+<script src="{% static 'users/js/ajax-auth.js' %}"></script>
 {% endblock %}
