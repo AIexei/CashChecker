@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic import View, RedirectView
 from django.http import HttpResponse
-from django.template.loader import render_to_string
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.core.mail import send_mail
@@ -70,29 +69,13 @@ class RegisterView(FormView):
         return super(RegisterView, self).dispatch(request, *args, **kwargs)
 '''
 
-class AuthView(View):
-    success_url = '/'
-    url = '/auth/'
-    template_name = 'users/loginsys.html'
-
-
-    def get(self, request, context=None):
-        return render(request, self.template_name, context)
-
-
-    def dispatch(self, request, *args, **kwargs):
-        if request.user and request.user.is_authenticated():
-            return redirect(self.success_url)
-
-        return super(AuthView, self).dispatch(request, *args, **kwargs)
-
 
 class LoginView(View):
     url = '/auth/login/'
 
 
     def get(self, request, context=None):
-        return redirect(AuthView.url)
+        return redirect('/')
 
 
     def post(self, request, *args, **kwargs):
@@ -106,7 +89,7 @@ class LoginView(View):
                 login(request, user)
                 message = ''
             else:
-                message = 'Your account is deactivated.'
+                message = 'Your account is not activated.'
         else:
             message = 'Invalid data.'
 
@@ -118,15 +101,44 @@ class RegisterView(View):
 
 
     def get(self, request, context=None):
-        return redirect(AuthView.url)
+        return redirect('/')
 
 
     def post(self, request, *args, **kwargs):
-        pass
+
+        return self.validation()
 
 
-    def form_valid(self, form):
-        pass
+    def validation(self):
+        self.data = dict()
+        self.data['email'] = self.request.POST.get('email')
+        self.data['name'] = self.request.POST.get('name')
+        self.data['password'] = self.request.POST.get('psw')
+        self.data['confirm_password'] = self.request.POST.get('cpsw')
+
+        if User.objects.filter(username=self.data['email']).exists():
+            return HttpResponse('User with this email exists.')
+
+        if self.data['password'] != self.data['confirm_password']:
+            return HttpResponse('Passwords don\'t match.')
+
+        if not self.password_validation(self.data['password']):
+            return HttpResponse('Password must contain latin letters or numbers.')
+
+        user = User.objects.create_user(username=self.data['email'],
+                                        email=None,
+                                        password=self.data['password'],
+                                        first_name=self.data['name'])
+
+        user.is_active = False
+        user.save()
+
+        send_mail('CC Registration', 'Hello from CashChecker', settings.EMAIL_HOST_USER, ['alexei03091997@gmail.com',])
+        return redirect('/')
+
+
+    def password_validation(self, password):
+        return bool(re.match(r'^[\d|a-zA-Z]{8,30}$', password))
 
 
     def dispatch(self, request, *args, **kwargs):
@@ -146,7 +158,3 @@ class LogoutView(RedirectView):
 
 def register_success(request):
     return HttpResponse('register success')
-
-
-def auth(request):
-    return render(request, 'users/loginsys.html')
