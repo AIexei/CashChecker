@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    $('body').removeClass('nojs');
 
 	$('button.button-adlinks').click(function(){
 		$(this).next().slideToggle();

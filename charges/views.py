@@ -1,17 +1,19 @@
-from django.views.generic import View
 from django.shortcuts import render
+from django.views.generic import View
+
+from users.views import AuthView
+
 
 # Create your views here.
 
 
 class IndexView(View):
     url = '/'
-    template_for_users = 'charges/index.html'
-    template_for_strangers = 'charges/loginsys.html'
+    template_name = 'charges/index.html'
 
 
-    def get(self, request, context=None):
+    def get(self, request):
         if request.user.is_authenticated():
-            return render(request, self.template_for_users, context)
+            return render(request, self.template_name)
         else:
-            return render(request, self.template_for_strangers, context)
+            return AuthView().get(request)

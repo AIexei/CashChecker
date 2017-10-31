@@ -81,3 +81,7 @@ body {
 	padding: 8px 15px;
 	margin: 8px 0;
 }
+
+.nojs {
+    display: none;
+}

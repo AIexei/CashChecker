@@ -94,6 +94,8 @@ DATABASES = {
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
 
+AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.AllowAllUsersModelBackend']
+
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -141,3 +143,5 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = "alexei03091997@gmail.com"
 EMAIL_HOST_PASSWORD = "375ndfonoff"
 EMAIL_USE_TLS = True
+
+EMAIL_CONFIRMATION = True

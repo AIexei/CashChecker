@@ -27,6 +27,7 @@ Auth
 						<form class="auth-form" method="post" action="{% url 'login' %}">
 							{% csrf_token %}
 							<h3>Please, sign in</h3>
+
 							<input name="email" type="email" class="finput" placeholder="Your email" required />
 							<input name="psw" type="password" class="linput" placeholder="Enter password" required/>
 
