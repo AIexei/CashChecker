@@ -23,7 +23,7 @@ Auth
 				</div>
 
 				<div class="col-md-5">
-					<div id="logindiv">
+					<div id="logindiv" class="hidden">
 						<form class="auth-form" method="post" action="{% url 'login' %}">
 							{% csrf_token %}
 							<h3>Please, sign in</h3>
@@ -41,15 +41,19 @@ Auth
 						</p>
 					</div>
 
-					<div id="registerdiv" class="hidden">
-						<form class="auth-form" method="post" action="{% url 'register' %}">
+					<div id="registerdiv">
+						<form class="auth-form" data-validate-url="{% url 'validation' %}" autocomplete="off" method="post" action="{% url 'validation' %}">
 							{% csrf_token %}
 							<h3>Please, register</h3>
-							<input name="email" type="email" class="finput" placeholder="Your email" required/>
+
+							{% for field in form %}
+								{{ field }}
+							{% endfor %}
+							<!--<input name="email" type="email" class="finput" placeholder="Your email" required/>
 							<input name="name" type="text" placeholder="Your name" required/>
 							<input name="psw" type="password" placeholder="Enter password" required/>
 							<input name="cpsw" type="password" class="linput" placeholder="Confirm password" required/>
-
+							-->
 							<p class="message"></p>
 							<button type="submit">Register</button>
 						</form>

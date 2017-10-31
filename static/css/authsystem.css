@@ -80,3 +80,9 @@
 	text-align: center;
 	color: red;
 }
+
+button.disabled {
+    pointer-events: none;
+    background-color: #888;
+    cursor: default;
+}
