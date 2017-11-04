@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import View, RedirectView, FormView
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth import login, logout, authenticate
+from django.contrib import messages
 from django.core.mail import send_mail
 from django.conf import settings
 from .forms import RegisterForm
@@ -16,8 +17,15 @@ class AuthView(View):
     template_name = 'users/loginsys.html'
 
 
-    def get(self, request):
-        context = {'form': RegisterForm()}
+    def get(self, request, context=None):
+        if context is None:
+            context = {'form': RegisterForm()}
+
+        storage = messages.get_messages(request)
+
+        for msg in storage:
+            print(msg)
+
         return render(request, self.template_name, context)
 
 
@@ -44,7 +52,11 @@ class LoginView(View):
         else:
             message = 'Invalid data.'
 
-        return HttpResponse(message)
+        if request.is_ajax():
+            return HttpResponse(message)
+
+        messages.error(request, message)
+        return redirect
 
 
 class RegisterView(FormView):
@@ -67,14 +79,6 @@ class RegisterView(FormView):
         self.data['name'] = self.request.POST.get('name')
         self.data['password'] = self.request.POST.get('psw')
         self.data['confirm_password'] = self.request.POST.get('cpsw')
-        if User.objects.filter(username=self.data['email']).exists():
-            return HttpResponse('User with this email exists.')
-
-        if self.data['password'] != self.data['confirm_password']:
-            return HttpResponse('Passwords don\'t match.')
-
-        if not self.password_validation(self.data['password']):
-            return HttpResponse('Password must contain latin letters or numbers.')
 
         user = User.objects.create_user(username=self.data['email'],
                                         email=None,
@@ -120,8 +124,11 @@ class RegisterValidation(FormView):
         return redirect('/')
 
 
+    def post(self, request, *args, **kwargs):
+        return super(RegisterValidation, self).post(request, *args, **kwargs)
+
+
     def form_invalid(self, form):
-        print(form.cleaned_data)
         errors = json.loads(form.errors.as_json())
         errors = self.filter_errors(errors)
 
@@ -137,7 +144,12 @@ class RegisterValidation(FormView):
             response['message'] = errors['cpsw']
 
         response['fields'] = list(errors.keys())
-        return JsonResponse(json.dumps(response), safe=False)
+
+        if self.request.is_ajax():
+            return JsonResponse(json.dumps(response), safe=False)
+
+        messages.error(self.request, response['message'])
+        return redirect('/')
 
 
     def filter_errors(self, data):
@@ -154,4 +166,9 @@ class RegisterValidation(FormView):
 
 
     def form_valid(self, form):
-        return redirect('/auth/register/')
+        if self.request.is_ajax():
+            response = {'message': '', 'fields': []}
+            return JsonResponse(json.dumps(response), safe=False)
+        else:
+            form.save()
+            return redirect('/')

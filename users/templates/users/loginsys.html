@@ -49,12 +49,13 @@ Auth
 							{% for field in form %}
 								{{ field }}
 							{% endfor %}
-							<!--<input name="email" type="email" class="finput" placeholder="Your email" required/>
-							<input name="name" type="text" placeholder="Your name" required/>
-							<input name="psw" type="password" placeholder="Enter password" required/>
-							<input name="cpsw" type="password" class="linput" placeholder="Confirm password" required/>
-							-->
-							<p class="message"></p>
+
+							<p class="message">
+								{% for msg in messages %}
+									{{ msg }}
+								{% endfor %}
+							</p>
+
 							<button type="submit">Register</button>
 						</form>
 

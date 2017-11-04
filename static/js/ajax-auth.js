@@ -43,6 +43,8 @@ $(document).ready(function() {
 
                 $(p).html(data['message']);
 
+                $(form).find('input').css('background-color', 'white');
+
                 data.fields.forEach(function(field) {
                     var id = 'id_' + field;
                     var input = $(form).find('input#' + id);
